@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milão → Zurique · 9–16 julho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16222e; --ink-soft:#46586a;
+    --paper:#eef3f6; --card:#ffffff; --line:#dce5eb;
+    --lago:#0e7c77; --lago-bg:#e2f1ef;
+    --alpe:#2f6db5; --alpe-bg:#e5eefa;
+    --transit:#62748a; --transit-bg:#e9eef3;
+    --sun:#bd6a1f; --sun-bg:#f8ecdd;
+    --ok:#2f7d54; --ok-bg:#e4f1e9;
+    --warn:#b27115; --warn-bg:#f7edda;
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Inter",system-ui,sans-serif;
+    --mono:"Spline Sans Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  a{color:var(--alpe);text-decoration:none}
+
+  /* hero */
+  header{padding:64px 0 30px}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--transit)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,8vw,72px);line-height:.98;letter-spacing:-.02em;margin:.18em 0 .12em}
+  h1 .arrow{color:var(--alpe);font-weight:400}
+  .lede{font-size:18px;color:var(--ink-soft);max-width:54ch;margin:.2em 0 0}
+  .stats{display:flex;flex-wrap:wrap;gap:28px;margin:30px 0 0;padding:20px 0 0;border-top:1px solid var(--line)}
+  .stat .n{font-family:var(--serif);font-size:27px;font-weight:500;line-height:1}
+  .stat .l{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--transit);margin-top:5px}
+
+  /* section frame */
+  section{padding:42px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:0 0 26px}
+  .sec-num{font-family:var(--mono);font-size:13px;color:var(--alpe)}
+  h2{font-family:var(--serif);font-weight:500;font-size:30px;letter-spacing:-.01em;margin:0}
+  .sec-sub{color:var(--ink-soft);max-width:60ch;margin:-12px 0 26px}
+
+  /* legend */
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--ink-soft);margin:0 0 26px}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dotc{width:11px;height:11px;border-radius:50%;flex:none}
+
+  /* altitude spine / days — cada dia é um card próprio */
+  .day{position:relative;display:grid;grid-template-columns:74px 1fr;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 20px 0 10px;margin:0 0 20px;box-shadow:0 1px 3px rgba(22,34,46,.05)}
+  .day.today{border-color:var(--sun);box-shadow:0 0 0 2px var(--sun-bg),0 1px 3px rgba(22,34,46,.05)}
+  .d-num{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:var(--c,var(--transit));color:#fff;padding:2.5px 9px;border-radius:999px;margin-right:9px;vertical-align:1px}
+  .alt{font-family:var(--mono);font-size:12.5px;color:var(--transit);text-align:right;padding-top:20px;white-space:nowrap}
+  .alt b{display:block;color:var(--ink);font-weight:500;font-size:15px}
+  .track{position:relative;padding:18px 0 26px}
+  .track::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(var(--lago),var(--alpe) 45%,var(--transit))}
+  .node{position:relative;padding-left:30px}
+  .node::before{content:"";position:absolute;left:1px;top:5px;width:15px;height:15px;border-radius:50%;background:var(--card);border:3px solid var(--c,var(--transit))}
+  .d-date{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--c,var(--transit))}
+  .d-title{font-family:var(--serif);font-size:21px;font-weight:500;line-height:1.15;margin:2px 0 4px}
+  .d-body{color:var(--ink-soft);font-size:15.5px}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin:8px 7px 0 0;background:var(--transit-bg);color:var(--transit)}
+  .tag.bed{background:var(--alpe-bg);color:var(--alpe)}
+
+  /* callout */
+  .note{background:var(--sun-bg);border-left:3px solid var(--sun);border-radius:0 8px 8px 0;padding:16px 18px;margin:6px 0 0}
+  .note h4{margin:0 0 4px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--sun)}
+  .note p{margin:0;font-size:15px;color:var(--ink-soft)}
+
+  /* como grid */
+  .stack{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .mini{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .mini h4{margin:0 0 5px;font-family:var(--serif);font-size:18px;font-weight:500}
+  .mini p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+
+  /* hikes */
+  .hike{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 14px}
+  .hike.star{border-color:var(--alpe);box-shadow:0 1px 0 var(--alpe) inset, 0 0 0 1px var(--alpe)}
+  .hike-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .hike h3{font-family:var(--serif);font-size:22px;font-weight:500;margin:0;line-height:1.12}
+  .hike .where{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--transit);margin:3px 0 0}
+  .badges{display:flex;gap:7px;flex-wrap:wrap}
+  .b{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .b.easy{background:var(--ok-bg);color:var(--ok)}
+  .b.mod{background:var(--warn-bg);color:var(--warn)}
+  .b.must{background:var(--alpe-bg);color:var(--alpe)}
+  .hike p{margin:12px 0 0;color:var(--ink-soft);font-size:15.5px}
+  .specs{display:flex;flex-wrap:wrap;gap:6px 22px;margin:13px 0 0;font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+  .specs span b{color:var(--transit);font-weight:400}
+
+  /* generic list cards */
+  .rows{display:grid;gap:12px}
+  .row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 18px}
+  .row h4{margin:0 0 3px;font-size:15.5px;font-weight:600}
+  .row p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .row .em{color:var(--alpe);font-weight:500}
+
+  footer{padding:34px 0 60px;color:var(--transit);font-size:13px;font-family:var(--mono)}
+
+  /* ---- trip progress ---- */
+  .progress{margin:26px 0 0}
+  .progress-label{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--transit);margin-bottom:9px}
+  .progress-label b{color:var(--ink);font-weight:500}
+  .progress-bar{display:flex;gap:4px}
+  .progress-bar span{flex:1;height:30px;border-radius:7px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;opacity:.8;transition:background .25s,border-color .25s,box-shadow .25s;cursor:pointer}
+  .progress-bar span:hover{opacity:1;border-color:var(--alpe)}
+  .progress-bar span.done{background:var(--alpe-bg);border-color:var(--alpe);opacity:1}
+  .progress-bar span.today{background:var(--sun-bg);border-color:var(--sun);box-shadow:0 0 0 2px var(--sun);opacity:1}
+
+  /* ---- route map ---- */
+  .route-map{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 14px 6px;margin:24px 0 0;overflow-x:auto}
+  .route-map svg{display:block;min-width:660px;width:100%;height:auto}
+  .rm-line{fill:none;stroke-width:2.5;stroke-linecap:round}
+  .rm-fill{opacity:.13}
+  .rm-label{font-family:var(--mono);font-size:10.5px;fill:var(--transit)}
+  .rm-alt{font-family:var(--mono);font-size:9px;fill:var(--transit);opacity:.75}
+  .rm-stay{font-size:10px}
+  .rm-dot{stroke-width:3;fill:var(--card)}
+
+  /* ---- day interactivity ---- */
+  .d-emoji{font-size:19px;margin-right:7px;vertical-align:-2px}
+  .day-head{cursor:pointer;-webkit-user-select:none;user-select:none}
+  .day-head:hover .d-title{color:var(--alpe)}
+  .chev{display:inline-block;margin-left:8px;font-size:11px;color:var(--transit);transition:transform .3s;vertical-align:2px}
+  .node.open .chev{transform:rotate(180deg)}
+  body.js .d-more{overflow:hidden;max-height:0;opacity:0;transition:max-height .38s ease,opacity .3s ease}
+  body.js .node.open .d-more{max-height:2400px;opacity:1}
+
+  /* ---- mais opções no mesmo lugar ---- */
+  .planb{margin:14px 0 4px;border:1px dashed var(--alpe);border-radius:10px;background:var(--alpe-bg)}
+  .planb summary{cursor:pointer;-webkit-user-select:none;user-select:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--alpe);padding:9px 14px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .planb summary::-webkit-details-marker{display:none}
+  .planb summary::after{content:"▼";font-size:10px;flex:none;transition:transform .3s}
+  .planb[open] summary::after{transform:rotate(180deg)}
+  .pb-body{padding:2px 14px 12px;font-size:14.5px;line-height:1.58;color:var(--ink-soft)}
+  .pb-body p{margin:0 0 9px}
+  .pb-body p:last-child{margin-bottom:0}
+  .pb-body b{color:var(--ink);font-weight:600}
+  .day.past{opacity:.55}
+  .day.past .node::before{background:var(--c,var(--transit))}
+  .day.today .node::before{box-shadow:0 0 0 4px var(--sun-bg)}
+  .day.today .d-date::after{content:" · hoje";color:var(--sun);font-weight:600}
+  .stay{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin:8px 0 0 0}
+  .stay.ok{background:var(--ok-bg);color:var(--ok)}
+  .stay.todo{background:var(--warn-bg);color:var(--warn)}
+
+  /* ---- hike accordion ---- */
+  .hike-top{cursor:pointer;-webkit-user-select:none;user-select:none}
+  .hike-top:hover h3{color:var(--alpe)}
+  body.js .hike-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .38s ease,opacity .3s ease}
+  body.js .hike.open .hike-body{max-height:1000px;opacity:1}
+  .hike .chev{margin-left:0}
+  .h-emoji{font-size:17px;margin-right:6px;vertical-align:-1px}
+
+  .sec-emoji{font-size:22px;margin-right:2px}
+
+  @media (max-width:560px){
+    .day{grid-template-columns:58px 1fr;gap:12px}
+    .alt{font-size:11px}
+    header{padding:44px 0 24px}
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--paper:#0f1620;--card:#16202b;--ink:#e8eef3;--ink-soft:#aebccb;--line:#26333f;
+      --lago-bg:#10312e;--alpe-bg:#142a40;--transit-bg:#1c2731;--sun-bg:#2e2114;--ok-bg:#152a1f;--warn-bg:#2c2110;}
+    .node::before{background:var(--card)}
+  }
+  @media print{
+    body{background:#fff}
+    section,header{border-color:#ccc}
+    .hike,.row,.mini,.day{break-inside:avoid}
+    a{color:inherit}
+    .d-more,.hike-body{max-height:none!important;opacity:1!important}
+    .chev{display:none}
+    .planb{border-style:solid}
+    .planb summary::after{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Rota de trem · lagos e Alpes · 7 noites · roteiro fechado 01/07</div>
+    <h1>Milão <span class="arrow">→</span> Zurique</h1>
+    <p class="lede">Chegada em Milão, descida rápida ao Lago de Como, subida aos passos alpinos e fechamento em Zurique, de trem, com tempo para geleira, trilhas de crista e uma noite de cidade antes do voo.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">9–16 jul</div><div class="l">janela da viagem</div></div>
+      <div class="stat"><div class="n">7</div><div class="l">noites</div></div>
+      <div class="stat"><div class="n">2 253 m</div><div class="l">ponto alto · Passo Bernina</div></div>
+      <div class="stat"><div class="n">20:45</div><div class="l">voo Zurique → Lisboa, dia 16</div></div>
+    </div>
+
+    <div class="progress" id="progress">
+      <div class="progress-label"><span>progresso da viagem</span><b id="progress-status">—</b></div>
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="route-map" aria-label="Mapa esquemático do trajeto com altitudes">
+      <svg viewBox="0 0 800 195" role="img">
+        <!-- perfil de altitude (y ∝ altitude real) -->
+        <path class="rm-fill" d="M40,144 L160,140 L280,128 L380,37 L455,64 L620,121 L760,129 L760,152 L40,152 Z" fill="var(--alpe)"/>
+        <path class="rm-line" d="M40,144 L160,140" stroke="var(--lago)"/>
+        <path class="rm-line" d="M160,140 L280,128 L380,37 L455,64" stroke="var(--alpe)"/>
+        <path class="rm-line" d="M455,64 L620,121 L760,129" stroke="var(--transit)"/>
+        <!-- pico Bernina -->
+        <circle class="rm-dot" cx="380" cy="37" r="5" stroke="var(--alpe)"/>
+        <text class="rm-label" x="380" y="22" text-anchor="middle">Passo Bernina</text>
+        <text class="rm-alt" x="380" y="52" text-anchor="middle">2 253 m</text>
+        <!-- paradas -->
+        <circle class="rm-dot" cx="40" cy="144" r="5" stroke="var(--lago)"/>
+        <text class="rm-label" x="40" y="167" text-anchor="middle">Milão</text>
+        <text class="rm-stay" x="40" y="182" text-anchor="middle">✅</text>
+        <circle class="rm-dot" cx="160" cy="140" r="5" stroke="var(--lago)"/>
+        <text class="rm-label" x="160" y="167" text-anchor="middle">Lecco · Varenna</text>
+        <text class="rm-stay" x="160" y="182" text-anchor="middle">✅</text>
+        <circle class="rm-dot" cx="280" cy="128" r="4" stroke="var(--alpe)"/>
+        <text class="rm-label" x="280" y="150" text-anchor="middle">Tirano</text>
+        <circle class="rm-dot" cx="455" cy="64" r="5" stroke="var(--alpe)"/>
+        <text class="rm-label" x="455" y="87" text-anchor="middle">Samedan · Pontresina</text>
+        <text class="rm-stay" x="455" y="102" text-anchor="middle">✅ 2n</text>
+        <circle class="rm-dot" cx="620" cy="121" r="5" stroke="var(--transit)"/>
+        <text class="rm-label" x="620" y="144" text-anchor="middle">Interlaken</text>
+        <text class="rm-stay" x="620" y="159" text-anchor="middle">✅ 2n</text>
+        <circle class="rm-dot" cx="760" cy="129" r="5" stroke="var(--transit)"/>
+        <text class="rm-label" x="760" y="152" text-anchor="middle">Zurique</text>
+        <text class="rm-stay" x="760" y="167" text-anchor="middle">⏳</text>
+      </svg>
+    </div>
+  </header>
+
+  <section id="roteiro">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Roteiro dia a dia</h2></div>
+    <div class="legend">
+      <span><i class="dotc" style="background:var(--lago)"></i> lago e Itália</span>
+      <span><i class="dotc" style="background:var(--alpe)"></i> alta montanha</span>
+      <span><i class="dotc" style="background:var(--transit)"></i> translado e cidade</span>
+    </div>
+
+    <div class="day" data-date="2026-07-09">
+      <div class="alt"><b>≈ 120 m</b>Milão</div>
+      <div class="track">
+        <div class="node" style="--c:var(--lago)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 1 de 8</span>Qui · 9 jul</div>
+            <div class="d-title"><span class="d-emoji">🛬</span>Chegada em Milão<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Voo pousa 17:25. Sem turismo — só jantar e dormir perto do aeroporto/centro. Bergamo saiu do roteiro.</div>
+            <span class="tag bed">dorme em Milão</span>
+            <span class="stay ok">✅ reservado · Ostello Bello Milano Duomo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-07-10">
+      <div class="alt"><b>≈ 200 m</b>Como</div>
+      <div class="track">
+        <div class="node" style="--c:var(--lago)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 2 de 8</span>Sex · 10 jul</div>
+            <div class="d-title"><span class="d-emoji">🚆🌊</span>Milão → Varenna → dorme em Lecco<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Manhã e almoço livres em Milão, trem pela margem leste (via Lecco) até Varenna. Vê a vila e o lago no fim de tarde — Varenna esgotou a hospedagem, então à noite trem de volta a Lecco (~38min) pra dormir.</div>
+            <span class="tag bed">dorme em Lecco</span>
+            <span class="stay ok">✅ reservado · Lecco Hostel &amp; Rooms</span>
+            <details class="planb"><summary>🧭 Mais opções em Varenna</summary><div class="pb-body">
+              <p>Além da vila e do lago, os jardins das <b>Villa Monastero</b> e <b>Villa Cipressi</b>, dentro da própria Varenna, dão uma caminhada tranquila entre vegetação e beira d'água.</p>
+              <p>Pra esticar mais, a subida ao <b>Castelo de Vezio</b> acima de Varenna (~35 min a pé, vista do lago) é uma trilha curta que não depende de ferry nem teleférico.</p>
+              <p>Trem Lecco↔Varenna roda ao longo do dia todo pela Trenord, então dá pra alternar entre as duas bases sem pressa.</p>
+            </div></details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-07-11">
+      <div class="alt"><b>2 253 m</b>Passo Bernina</div>
+      <div class="track">
+        <div class="node" style="--c:var(--alpe)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 3 de 8</span>Sáb · 11 jul</div>
+            <div class="d-title"><span class="d-emoji">⛴️🚂</span>Lecco → Varenna → Tirano → Engadina<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Trem cedo Lecco→Varenna (~38min). Ferry curto Varenna–Bellagio de manhã. Trem regional pela margem do lago até Tirano, depois a linha Bernina (trem vermelho, vagão aberto no verão) cruzando os Alpes até a alta Engadina. Pontresina esgotou — pernoite em Samedan, a 4min de trem de Pontresina.</div>
+            <span class="tag bed">dorme em Samedan</span>
+            <span class="stay ok">✅ reservado · Airbnb em Samedan (Dino)</span>
+            <details class="planb"><summary>🧭 Mais opções nessa manhã em Varenna</summary><div class="pb-body">
+              <p>Além do ferry até Bellagio, a manhã em Varenna também rende uma subida a pé ao <b>Castelo de Vezio</b> (~35 min, vista do lago) ou uma volta pelos jardins de <b>Villa Monastero</b>/<b>Villa Cipressi</b>, tudo sem depender de barco — bom pra quem quiser um programa mais tranquilo antes do trem regional a Tirano.</p>
+            </div></details>
+            <div class="note">
+              <h4>⚽ Suíça x Argentina, quartas de final — madrugada de sáb pra dom</h4>
+              <p>Kickoff 20h em Kansas City = <b>03h da manhã de domingo 12/07</b> no horário suíço, bem na virada da chegada em Samedan. Sem fanzone/telão oficial confirmado em Samedan ou Pontresina — melhor aposta é St. Moritz (trem ~20-30min): Sunny Bar do Kulm Hotel, Zoo Bar (Hotel Soldanella) ou Bobby's Pub. Ligar antes pra confirmar que abrem de madrugada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-07-12">
+      <div class="alt"><b>2 091 m</b>Morteratsch</div>
+      <div class="track">
+        <div class="node" style="--c:var(--alpe)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 4 de 8</span>Dom · 12 jul</div>
+            <div class="d-title"><span class="d-emoji">🧊🥾</span>Engadina: dia duplo de trilha<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Manhã: trem até Morteratsch, trilha até a geleira e volta (~2h). Tarde: de volta a Pontresina, trilha do Val Roseg direto da estação (~1h30). ~3h30-4h de trilha no dia, as duas grátis. Muottas Muragl fica de reserva, é pago e sem desconto de passe.</div>
+            <span class="tag bed">dorme em Samedan</span>
+            <span class="stay ok">✅ mesma reserva · 2ª noite</span>
+            <div class="note">
+              <h4>⛪ Missa dominical — Herz-Jesu-Kirche, Samedan, 10:30</h4>
+              <p>Único horário confirmado (Pontresina não tem paróquia própria, é coberta por Samedan). Cai no meio da manhã de Morteratsch — decidir entre começar a trilha mais cedo pra caber a missa, ou inverter a ordem do dia (missa primeiro, Morteratsch mais curto / só Val Roseg à tarde).</p>
+            </div>
+            <details class="planb"><summary>🧭 Mais trilhas na Engadina</summary><div class="pb-body">
+              <p><b>Caminho do rio Flaz</b> (Flazuferweg), Samedan ↔ Pontresina/Punt Muragl: trilha plana à beira do rio, grátis, sai a pé direto de Samedan, sem trem nem teleférico — ~4 km só o trecho de rio, ou até ~7 km/1h45 se emendar com a floresta de larícios.</p>
+              <p><b>Lej da Staz</b>, lago na floresta de larícios entre Pontresina e St. Moritz: trilha sai direto da estação de trem de Pontresina, ~3 km/1h15 até o lago, gratuita, com banho permitido no verão (água costuma chegar a ~20°C). Trem RhB Samedan↔Pontresina roda a cada hora.</p>
+              <p>Outra opção tranquila: volta a pé pela margem do <b>Lago de St. Moritz</b> (Lej da San Murezzan), ~4,2 km/1h, plana e gratuita.</p>
+              <p>De cultura: a igreja de <b>San Gian</b> em Celerina (1478, afrescos do séc. XV) é gratuita, com horário restrito (~14h–16h, poucos dias por semana).</p>
+            </div></details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-07-13">
+      <div class="alt"><b>≈ 570 m</b>Interlaken</div>
+      <div class="track">
+        <div class="node" style="--c:var(--transit)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 5 de 8</span>Seg · 13 jul</div>
+            <div class="d-title"><span class="d-emoji">🚞</span>Pontresina/Samedan → Interlaken<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Dia de trem pela linha Albula (viaduto Landwasser) e Chur até Interlaken, ~5h. Base mudou de Lauterbrunnen (esgotada) para Interlaken — mesmo hub de trem, sem perda de conexão.</div>
+            <span class="tag bed">dorme em Interlaken</span>
+            <span class="stay ok">✅ reservado · Chalet Hostel @ Backpackers Villa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-07-14">
+      <div class="alt"><b>2 230 m</b>Männlichen</div>
+      <div class="track">
+        <div class="node" style="--c:var(--alpe)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 6 de 8</span>Ter · 14 jul</div>
+            <div class="d-title"><span class="d-emoji">🚠🏔️</span>Jungfrau: dia duplo de trilha<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Trem a Grindelwald, gôndola a Männlichen, trilha da crista até Kleine Scheidegg (1h05–1h30, Eiger/Mönch/Jungfrau de frente). De lá, trem curto até Eigergletscher e desce o Eiger Trail até Alpiglen (~2h30, ao pé da parede norte). Trem de volta via Grindelwald a Interlaken. ~4h de trilha no total.</div>
+            <span class="tag bed">dorme em Interlaken</span>
+            <span class="stay ok">✅ mesma reserva · 2ª noite</span>
+            <details class="planb"><summary>🧭 Mais opções na região do Jungfrau</summary><div class="pb-body">
+              <p><b>Vale de Lauterbrunnen</b> (Lauterbrunnen → Stechelberg): caminhada de fundo de vale, ~8,2 km/2h, quase plana (só ~161 m de desnível), acompanhando o rio Weisse Lütschine. A <b>cachoeira Staubbach</b> (297 m, uma das mais altas da Europa) fica a ~10 min a pé da estação, vista gratuita. Trem BOB Interlaken Ost → Lauterbrunnen, ~22 min, roda de hora em hora.</p>
+              <p><b>Trümmelbach Falls</b>: dez quedas glaciais dentro da própria montanha, com túneis e passarelas. Entrada CHF 18 adulto, aberta 8h30–18h em julho.</p>
+              <p>Em Grindelwald: a <b>Gletscherschlucht</b> (garganta glacial), passarelas entre paredes de rocha, CHF 21, acesso de ônibus (linha 122).</p>
+              <p>Mais tranquilo: caminho a pé/de ônibus Interlaken Ost → Bönigen à beira do rio Aare e do lago, ~30-40 min, grátis, seguindo até Iseltwald pela orla do Lago Brienz se der vontade de esticar.</p>
+            </div></details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-07-15">
+      <div class="alt"><b>≈ 410 m</b>Zurique</div>
+      <div class="track">
+        <div class="node" style="--c:var(--transit)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 7 de 8</span>Qua · 15 jul</div>
+            <div class="d-title"><span class="d-emoji">🏙️</span>Interlaken → Zurique<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Trem direto (IC), ~2h, mais simples que sair de Lauterbrunnen. Tarde e noite livres na Altstadt, no lago e na Bahnhofstrasse.</div>
+            <span class="tag bed">dorme em Zurique</span>
+            <span class="stay todo">⏳ falta reservar · sugestão: Oldtown Hostel Otter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-07-16">
+      <div class="alt"><b>≈ 410 m</b>Zurique</div>
+      <div class="track">
+        <div class="node" style="--c:var(--transit)">
+          <div class="day-head">
+            <div class="d-date"><span class="d-num">dia 8 de 8</span>Qui · 16 jul</div>
+            <div class="d-title"><span class="d-emoji">🛫</span>Zurique e voo<span class="chev">▼</span></div>
+          </div>
+          <div class="d-more">
+            <div class="d-body">Manhã e início da tarde livres na cidade velha e à beira do lago. No aeroporto até ~18:45 para o voo das 20:45.</div>
+            <span class="tag">voo de volta</span>
+            <details class="planb"><summary>🧭 Mais o que fazer em Zurique nessa manhã</summary><div class="pb-body">
+              <p><b>Grossmünster</b>: nave principal grátis, sem reserva; torre CHF 5. <b>Fraumünster</b> (vitrais de Chagall): CHF 5, mas evite 11h30–13h15 numa quinta-feira, horário em que costuma fechar para concerto de órgão. Os dois ficam a ~10 min a pé um do outro e do HB.</p>
+              <p><b>Landesmuseum</b> (Museu Nacional Suíço), literalmente ao lado da estação central: CHF 13, aberto até 19h às quintas.</p>
+              <p><b>Helmhaus Zürich</b> (arte contemporânea, na Altstadt à beira do Limmat): entrada grátis, sem reserva.</p>
+            </div></details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="como">
+    <div class="sec-head"><span class="sec-num">02</span><h2><span class="sec-emoji">⛵</span> Lago de Como, a passagem rápida</h2></div>
+    <p class="sec-sub">A tarde do dia 10 (chegando de Milão) mais a manhã do dia 11 (antes do ferry a Tirano) cobrem o centro do lago em ~1 dia — caiu de ~1,5 dia para abrir espaço à noite em Zurique no fim do roteiro.</p>
+    <div class="stack">
+      <div class="mini"><h4>Centro lago de ferry</h4><p>Varenna, Bellagio e Menaggio formam o triângulo. O passe de ferry da zona central deixa pular de uma à outra o dia todo.</p></div>
+      <div class="mini"><h4>Jardins de villa</h4><p>Villa Monastero e Villa Cipressi em Varenna, Villa Carlotta perto de Tremezzo, Villa del Balbianello na ponta de Lenno.</p></div>
+      <div class="mini"><h4>Esticar as pernas</h4><p>Subida curta ao Castelo de Vezio acima de Varenna (~35 min, vista do lago), ou a Greenway del Lago, plana e à beira d'água.</p></div>
+    </div>
+    <div class="note">
+      <h4>Estação de Varenna não vende bilhete na hora</h4>
+      <p>Varenna não tem bilheteria nem máquina — o trecho Varenna→Tirano de sábado precisa ser comprado antes pelo app/site da Trenitalia, não dá para contar em comprar na estação.</p>
+    </div>
+    <div class="note">
+      <h4>🎬 Star Wars em Como (Villa del Balbianello) — provavelmente não cabe</h4>
+      <p>Cenário de Naboo em <i>Attack of the Clones</i>, em Lenno — sem ferry direto de Varenna/Bellagio, precisa barco/taxi-boat até Lenno + ~20-25min a pé. Aberta sáb 11/07 (fecha só seg/qua, não é isso que barra), mas o dia já está cheio: ferry Varenna–Bellagio de manhã + trem Tirano→Samedan à tarde. Encaixar Balbianello provavelmente estoura o trem pra Engadina — decidir se corta tempo de Bellagio pra caber, ou abre mão.</p>
+    </div>
+  </section>
+
+  <section id="trilhas">
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="sec-emoji">🥾</span> Trilhas imperdíveis</h2></div>
+    <p class="sec-sub">As que valem a pena de verdade, moderadas, sem nada hardcore. Quase todas usam funicular ou gôndola para poupar a subida.</p>
+
+    <div class="hike star">
+      <div class="hike-top">
+        <div><h3>Männlichen → Kleine Scheidegg</h3><div class="where">Jungfrau · trilha panorâmica</div></div>
+        <div class="badges"><span class="b must">⭐ imperdível</span><span class="b easy">fácil</span></div>
+      </div>
+      <p>A trilha da crista, com Eiger, Mönch e Jungfrau de frente o trajeto inteiro. Larga, quase plana, com restaurantes nas duas pontas. A melhor caminhada fácil da região.</p>
+      <div class="specs"><span><b>dist.</b> ~4,5 km</span><span><b>tempo</b> 1h05–1h30</span><span><b>acesso</b> gôndola Grindelwald → Männlichen, CHF 34 ida e volta; trem de volta em Kleine Scheidegg</span></div>
+    </div>
+
+    <div class="hike">
+      <div class="hike-top">
+        <div><h3>First → Bachalpsee</h3><div class="where">Jungfrau · lago espelho</div></div>
+        <div class="badges"><span class="b mod">💸 não-imperdível, paga</span></div>
+      </div>
+      <p>Lago alpino que reflete o Schreckhorn nos dias calmos. Bonita, mas não é a imperdível da região — candidata a trocar por North Face Trail ou Eiger Trail, que saem do vale sem teleférico pago.</p>
+      <div class="specs"><span><b>dist.</b> ~6 km ida e volta</span><span><b>tempo</b> 1h30–2h</span><span><b>subida</b> ~120 m</span><span><b>acesso</b> gôndola First, CHF 76 ida e volta</span></div>
+    </div>
+
+    <div class="hike star">
+      <div class="hike-top">
+        <div><h3>Trilha da geleira de Morteratsch</h3><div class="where">Engadina · língua de gelo</div></div>
+        <div class="badges"><span class="b must">⭐ default, grátis</span><span class="b easy">fácil</span></div>
+      </div>
+      <p>Caminhada plana pelo vale até a frente da geleira do maciço Bernina, com 16 painéis marcando o recuo do gelo nos últimos 150 anos. Caminho largo e liso, fácil para qualquer um. Só paga o trem até a estação.</p>
+      <div class="specs"><span><b>dist.</b> ~6 km ida e volta</span><span><b>tempo</b> ~2h</span><span><b>subida</b> ~200 m</span><span><b>acesso</b> trem até a estação Morteratsch, na linha Bernina</span></div>
+    </div>
+
+    <div class="hike star">
+      <div class="hike-top">
+        <div><h3>Val Roseg</h3><div class="where">Engadina · vale até a geleira</div></div>
+        <div class="badges"><span class="b must">⭐ recomendada, grátis</span><span class="b easy">fácil</span></div>
+      </div>
+      <p>Vale plano direto da estação de Pontresina até o Hotel Roseg, sem teleférico. Guias externos apontam como um dos melhores passeios da Engadina. Combina bem com Morteratsch de manhã no mesmo dia.</p>
+      <div class="specs"><span><b>dist.</b> ~7 km</span><span><b>tempo</b> ~1h30</span><span><b>acesso</b> a pé direto da estação de Pontresina</span></div>
+    </div>
+
+    <div class="hike">
+      <div class="hike-top">
+        <div><h3>Muottas Muragl → Alp Languard</h3><div class="where">Engadina · panorama dos lagos</div></div>
+        <div class="badges"><span class="b mod">💸 reserva, sem desconto de passe</span></div>
+      </div>
+      <p>Vista contínua dos lagos da Engadina e do maciço Bernina, por bosque de lariços e pinheiros-cembros. Funicular histórico de 1907 sobe, teleférico em Alp Languard desce. Pedregosa em trechos. CHF 42,50 + CHF 29, sem desconto de Half Fare Card nem Swiss Travel Pass — fica de reserva atrás de Morteratsch/Val Roseg.</p>
+      <div class="specs"><span><b>dist.</b> ~6,8 km</span><span><b>tempo</b> ~2h</span><span><b>acesso</b> funicular Punt Muragl → Muottas Muragl</span></div>
+    </div>
+
+    <div class="hike">
+      <div class="hike-top">
+        <div><h3>North Face Trail</h3><div class="where">Jungfrau · Mürren e Gimmelwald</div></div>
+        <div class="badges"><span class="b easy">🌿 grátis, sem teleférico pago</span><span class="b mod">moderada</span></div>
+      </div>
+      <p>Volta pelas pastagens acima de Mürren, de frente para a parede norte do Eiger, com quatro restaurantes de montanha no caminho e uma cachoeira escondida na descida a Gimmelwald. Alternativa consagrada ao First.</p>
+      <div class="specs"><span><b>dist.</b> ~6–7 km</span><span><b>tempo</b> 2h30–3h</span><span><b>acesso</b> funicular Mürren → Allmendhubel</span></div>
+    </div>
+
+    <div class="hike">
+      <div class="hike-top">
+        <div><h3>Eiger Trail</h3><div class="where">Jungfrau · ao pé da parede norte</div></div>
+        <div class="badges"><span class="b mod">moderada</span></div>
+      </div>
+      <p>Mais esforço, ainda sem ser hardcore: desce de Eigergletscher a Alpiglen colada à parede norte do Eiger. Casa bem com a trilha do Männlichen no mesmo dia.</p>
+      <div class="specs"><span><b>dist.</b> ~6 km</span><span><b>tempo</b> ~2h30</span><span><b>acesso</b> trem a Eigergletscher; volta de trem em Alpiglen</span></div>
+    </div>
+
+    <div class="hike">
+      <div class="hike-top">
+        <div><h3>Lauterbrunnen → Stechelberg</h3><div class="where">Fundo do vale · day-trip de Interlaken</div></div>
+        <div class="badges"><span class="b easy">🌿 fácil, grátis</span></div>
+      </div>
+      <p>Caminhada plana no fundo do vale, a pé ou de bike, passando pela Staubbach Falls. Trümmelbach Falls (cachoeira subterrânea) é opcional, ~CHF 14. Com a base agora em Interlaken, vira um pulo de trem (~20min) em vez de sair direto da hospedagem — encaixar na chegada do dia 13 à tarde ou como complemento leve no dia do Jungfrau.</p>
+      <div class="specs"><span><b>acesso</b> trem Interlaken Ost → Lauterbrunnen (~20min), depois a pé</span></div>
+    </div>
+
+    <div class="note">
+      <h4>Fáceis de reserva, se o tempo virar</h4>
+      <p>Na Engadina: Lej da Staz, volta de lago no bosque de lariços, com banho no verão. Curta e bonita.</p>
+    </div>
+  </section>
+
+  <section id="passes">
+    <div class="sec-head"><span class="sec-num">04</span><h2><span class="sec-emoji">🎫</span> Passes e custos</h2></div>
+    <p class="sec-sub">Roteiro mais curto (7 noites, sem Lucerna/Lugano) tirou volume de trechos longos — o cálculo do Half Fare Card mudou de lado, ver nota abaixo.</p>
+    <div class="rows">
+      <div class="row"><h4>Swiss Half Fare Card · CHF 150, um mês <span class="em">em xeque</span></h4><p>Subiu de CHF 120 para 150 em jan/2026. Conta preliminar: ~CHF 274 de tarifa cheia elegível vs. ~CHF 288 pagando o cartão + metade das tarifas — o card pode não compensar mais neste roteiro reduzido. Decisão trava no preço do trecho Lauterbrunnen→Zurique, ainda não confirmado no app SBB.</p></div>
+      <div class="row"><h4>Swiss Travel Pass · CHF 254 / 309 / 399 / 439 (3/4/6/8 dias)</h4><p>Perdeu ainda mais vantagem com menos trechos longos no roteiro — fora da decisão por enquanto.</p></div>
+      <div class="row"><h4>Bernina sem pagar a mais</h4><p>Pegue o trem regional vermelho da RhB, mesma vista do Express, sem reserva obrigatória. No verão há vagão aberto acoplado a alguns regionais.</p></div>
+      <div class="row"><h4>Muottas Muragl e Alp Languard não têm desconto</h4><p>A operadora (Engadin St. Moritz Mountains AG) exclui Half Fare Card e Swiss Travel Pass — paga tarifa cheia no balcão mesmo, reforça manter Morteratsch/Val Roseg como default.</p></div>
+      <div class="row"><h4>Gastronomia e hospedagem, orçamento baixo</h4><p>Coma bem e barato na Itália (Como, Valtellina). Na Suíça, abasteça em Coop e Migros e use as bancas de Bratwurst. Priorize hostel/guesthouse budget, principalmente em Zurique e Lauterbrunnen/Interlaken.</p></div>
+    </div>
+  </section>
+
+  <section id="praticas">
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="sec-emoji">📌</span> Notas práticas</h2></div>
+    <div class="rows">
+      <div class="row"><h4>Lauterbrunnen esgotou — base virou Interlaken</h4><p>Busca em 04/07 (5 dias antes da viagem) não achou nenhum alojamento em Lauterbrunnen para 13–15/07. Base dos dias 13-14 muda para Interlaken, sem perda logística: as gôndolas de Männlichen e First saem de Grindelwald, não de Lauterbrunnen.</p></div>
+      <div class="row"><h4>Reserve cedo, e cancele o que sobrou</h4><p>✅ Confirmadas e pagas: Milão (Ostello Bello Milano Duomo), Lecco (Lecco Hostel &amp; Rooms — virou a pernoite no lugar de Varenna, que esgotou), Samedan (Airbnb do Dino, 2 noites — Pontresina esgotou, Samedan fica a 4min de trem) e Interlaken (Chalet Hostel @ Backpackers Villa, 2 noites). ⏳ Falta só Zurique — recomendação: Oldtown Hostel Otter. Se já havia reserva em Lucerna, Lugano ou 2ª noite de Varenna, cancelar — saíram do roteiro. Trave também os Supersaver dos trechos longos algumas semanas antes.</p></div>
+      <div class="row"><h4>Janela de operação</h4><p>Männlichen e First funcionam no verão; cheque o tempo de manhã antes de subir e tenha uma trilha de reserva no bolso.</p></div>
+      <div class="row"><h4>Dia do voo</h4><p>No dia 16, esteja no aeroporto de Zurique até ~18:45 para o voo das 20:45. Dormindo em Zurique na véspera, sobra manhã e início de tarde livres na cidade, sem trem longo no dia do voo.</p></div>
+      <div class="row"><h4>Trecho pendente de orçar</h4><p>Preço/duração exata de Interlaken→Zurique ainda não confirmado no app SBB — checar antes de decidir sobre o Half Fare Card (seção 04). Provavelmente mais simples/barato que a rota antiga via Lauterbrunnen.</p></div>
+    </div>
+  </section>
+
+  <footer>Roteiro pessoal · Milão → Zurique · 9–16 julho · 7 noites · valores e horários sujeitos a mudança, confirme antes de comprar</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  document.body.classList.add("js");
+
+  var pad = function(n){ return (n<10?"0":"")+n; };
+  var now = new Date();
+  var todayStr = now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate());
+
+  var days = Array.prototype.slice.call(document.querySelectorAll(".day[data-date]"));
+  var emojis = ["🛬","🚆","⛴️","🧊","🚞","🚠","🏙️","🛫"];
+
+  /* ---- estado por data: passado / hoje / futuro ---- */
+  days.forEach(function(day){
+    var d = day.getAttribute("data-date");
+    if (d < todayStr) day.classList.add("past");
+    else if (d === todayStr) day.classList.add("today");
+  });
+
+  /* ---- dias colapsáveis ---- */
+  days.forEach(function(day){
+    var node = day.querySelector(".node");
+    var head = day.querySelector(".day-head");
+    if (!node || !head) return;
+    var d = day.getAttribute("data-date");
+    if (d >= todayStr) node.classList.add("open"); /* passado começa fechado */
+    head.setAttribute("tabindex","0");
+    head.setAttribute("role","button");
+    var toggle = function(){
+      node.classList.toggle("open");
+      head.setAttribute("aria-expanded", node.classList.contains("open"));
+    };
+    head.setAttribute("aria-expanded", node.classList.contains("open"));
+    head.addEventListener("click", toggle);
+    head.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+    });
+  });
+
+  /* ---- barra de progresso da viagem ---- */
+  var bar = document.getElementById("progress-bar");
+  var status = document.getElementById("progress-status");
+  if (bar && status && days.length){
+    var first = days[0].getAttribute("data-date");
+    var last = days[days.length-1].getAttribute("data-date");
+    days.forEach(function(day, i){
+      var seg = document.createElement("span");
+      seg.textContent = emojis[i] || "·";
+      var d = day.getAttribute("data-date");
+      if (d < todayStr) seg.classList.add("done");
+      if (d === todayStr) seg.classList.add("today");
+      seg.title = day.querySelector(".d-date") ? day.querySelector(".d-date").textContent : d;
+      seg.addEventListener("click", function(){
+        day.scrollIntoView({behavior:"smooth", block:"center"});
+        var node = day.querySelector(".node");
+        if (node && !node.classList.contains("open")) node.classList.add("open");
+      });
+      bar.appendChild(seg);
+    });
+    if (todayStr < first){
+      var diff = Math.round((new Date(first+"T00:00:00") - new Date(todayStr+"T00:00:00"))/86400000);
+      status.textContent = diff === 1 ? "falta 1 dia ✈️" : "faltam "+diff+" dias ✈️";
+    } else if (todayStr > last){
+      status.textContent = "viagem concluída 🎉";
+    } else {
+      var idx = -1;
+      days.forEach(function(day, i){ if (day.getAttribute("data-date") <= todayStr) idx = i; });
+      status.textContent = "dia "+(idx+1)+" de "+days.length;
+    }
+  }
+
+  /* ---- accordion nas trilhas (embrulha corpo em runtime) ---- */
+  var hikes = Array.prototype.slice.call(document.querySelectorAll(".hike"));
+  hikes.forEach(function(hike){
+    var top = hike.querySelector(".hike-top");
+    if (!top) return;
+    var body = document.createElement("div");
+    body.className = "hike-body";
+    var next = top.nextElementSibling;
+    while (next){
+      var el = next;
+      next = next.nextElementSibling;
+      body.appendChild(el);
+    }
+    hike.appendChild(body);
+    var chev = document.createElement("span");
+    chev.className = "chev";
+    chev.textContent = "▼";
+    var h3 = top.querySelector("h3");
+    if (h3) h3.appendChild(chev);
+    if (hike.classList.contains("star")) hike.classList.add("open");
+    top.setAttribute("tabindex","0");
+    top.setAttribute("role","button");
+    var toggle = function(){
+      hike.classList.toggle("open");
+      top.setAttribute("aria-expanded", hike.classList.contains("open"));
+      chev.style.transform = hike.classList.contains("open") ? "rotate(180deg)" : "";
+    };
+    top.setAttribute("aria-expanded", hike.classList.contains("open"));
+    chev.style.transform = hike.classList.contains("open") ? "rotate(180deg)" : "";
+    top.addEventListener("click", toggle);
+    top.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+    });
+  });
+
+  /* ---- ao imprimir, abre tudo (dias + planos B) ---- */
+  window.addEventListener("beforeprint", function(){
+    Array.prototype.slice.call(document.querySelectorAll(".node")).forEach(function(n){ n.classList.add("open"); });
+    Array.prototype.slice.call(document.querySelectorAll("details.planb")).forEach(function(d){ d.open = true; });
+  });
+})();
+</script>
+</body>
+</html>
